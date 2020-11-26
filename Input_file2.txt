@@ -1,0 +1,22 @@
+create_parking_lot 6 Park_N_Shop
+park KA-01-HH-1234 Black
+park KA-01-HH-9999 White
+park KA-01-BB-0001 Black
+park KA-01-HH-7777 Red
+park KA-01-HH-2701 Blue
+park KA-01-HH-3141 Black
+leave 2
+leave 3
+leave 6
+remaining_slots
+nearest_empty_slot
+view_parked_cars
+park KA-01-P-3333 White
+park DL-12-AA-9999 White
+view_parked_cars
+park DL-12-AA-9123 Black
+park DL-12-AA-1155 Red
+registration_numbers_for_cars_with_colour White
+slot_numbers_for_cars_with_colour Black
+slot_number_for_registration_number KA-01-HH-7777
+slot_number_for_registration_number MH-04-AY-1111
