@@ -75,13 +75,14 @@ class ParkingLot:
         return registration_nos
 
 
-    def slot_numbers_by_reg_no(self,registration_no):
+    def slot_number_by_reg_no(self,registration_no):
         
         for i in range(self.size):
-            if self.slots[i].reg_no == registration_no:
-                return i+1
-            else:
+            if self.slots[i] == 0:
                 continue
+            elif self.slots[i].reg_no == registration_no:
+                return i+1
+        
         return -1
             
 
@@ -145,7 +146,7 @@ class ParkingLot:
 
         elif line.startswith("slot_number_for_registration_number"):
             registration_no = line.split(" ")[1]
-            slot_no = self.slot_numbers_by_reg_no(registration_no)
+            slot_no = self.slot_number_by_reg_no(registration_no)
             if slot_no == -1:
                 print("No such car is Parked here")
             else:
