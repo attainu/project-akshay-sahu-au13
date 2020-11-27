@@ -61,21 +61,27 @@ class ParkingLot:
                 print(f"{i+1} \t\t ((EMPTY))\t\t((EMPTY))")
 
 
-    def get_registration_no_by_color(self,color):
+    def get_registration_no_by_color(self,color): ##
 
         registration_nos = []
-        for i in self.slots:
+        if self.size == 0:
+            return -1
+        else:
+            for i in self.slots:
 
-            if i == 0:
-                continue
+                if i == 0:
+                    continue
 
-            if i.color.lower() == color.lower():
-                registration_nos.append(i.reg_no)
+                if i.color.lower() == color.lower():
+                    registration_nos.append(i.reg_no)
 
-        return registration_nos
+            return registration_nos
 
 
     def slot_number_by_reg_no(self,registration_no):
+
+        if self.slot_no == 0: #####
+            return -1
         
         for i in range(self.size):
             if self.slots[i] == 0:
@@ -86,17 +92,20 @@ class ParkingLot:
         return -1
             
 
-    def slot_numbers_by_color(self,color):
+    def slot_numbers_by_color(self,color): ###
         
         slot_numbers = []
+        if self.size == 0:
+            return -1
 
-        for i in range(self.size):
+        else:
+            for i in range(self.size):
 
-            if self.slots[i] == 0:
-                continue
-            if self.slots[i].color.lower() == color.lower():
-                slot_numbers.append(str(i+1))
-        return slot_numbers
+                if self.slots[i] == 0:
+                    continue
+                if self.slots[i].color.lower() == color.lower():
+                    slot_numbers.append(str(i+1))
+            return slot_numbers
 
 
     def Execute(self,line):
@@ -111,7 +120,10 @@ class ParkingLot:
             print(f"There are {self.no_of_empty_slots()} empty slots available")
 
         elif line.startswith("nearest_empty_slot"):
-            print(f"Nearest available slot is {self.get_nearest_slot()+1}")
+            if self.size == 0:
+                print("Parking lot not created yet, please create it first.")
+            else:
+                print(f"Nearest available slot is {self.get_nearest_slot()+1}")
 
         elif line.startswith("park"):
             registration_no = line.split(" ")[1]
@@ -125,24 +137,33 @@ class ParkingLot:
         elif line.startswith("view_parked_cars"):
             self.view_parked_cars()
 
-        elif line.startswith("registration_numbers_for_cars_with_colour"):
+        elif line.startswith("registration_numbers_for_cars_with_colour"): #####
             color = line.split(" ")[1]
             registration_nos = self.get_registration_no_by_color(color)
-            print(', '.join(registration_nos))
+            if registration_nos == -1:
+                print("Parking lot not created yet!")
+            else:
+                print(', '.join(registration_nos))
 
-        elif line.startswith("slot_numbers_for_cars_with_colour"):
+        elif line.startswith("slot_numbers_for_cars_with_colour"): ###
             color = line.split(" ")[1]
             slot_numbers = self.slot_numbers_by_color(color)
-            print(', '.join(slot_numbers))
+            if slot_numbers == -1:
+                print("Parking lot not created yet!")
+            else:
+                print(', '.join(slot_numbers))
 
         elif line.startswith("leave"):
-            leave_slot = int(line.split(" ")[1])
-            status = self.leave(leave_slot)
-
-            if status == "Left":
-                print(f"Vacated slot number {leave_slot}")
+            if self.size == 0:
+                print("Parking lot is not created, please create it first.")
             else:
-                print(f"The slot number {leave_slot} is already Vacant")
+                leave_slot = int(line.split(" ")[1])
+                status = self.leave(leave_slot)
+
+                if status == "Left":
+                    print(f"Vacated slot number {leave_slot}")
+                else:
+                    print(f"The slot number {leave_slot} is already Vacant")
 
         elif line.startswith("slot_number_for_registration_number"):
             registration_no = line.split(" ")[1]
